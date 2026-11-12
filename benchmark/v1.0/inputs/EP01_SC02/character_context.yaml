@@ -1,0 +1,40 @@
+characters:
+  - name: "飯綱隼太"
+    age: 16
+    role: "主人公"
+    speech:
+      first_person: "僕"
+      register: "常体"
+      tendency:
+        - "口数は少ない"
+        - "返答は短め"
+        - "逡巡することがある"
+
+  - name: "大神みず葉"
+    age: 17
+    role: "ヒロイン／幼なじみ"
+    personality:
+      - "明るい"
+      - "元気"
+    speech:
+      first_person: "わたし"
+      register: "常体"
+    behavior:
+      - "隼太との物理的距離が近い"
+      - "隼太の表情をよく見る"
+
+  - name: "住吉奨太郎"
+    age: 17
+    role: "親友"
+    personality:
+      - "陽気"
+      - "楽天的"
+    speech:
+      first_person: "俺"
+      tendency:
+        - "明るい"
+        - "勢いがある"
+
+benchmark_note:
+  - "EP01_SC02生成に必要な人物情報だけを抽出した実験用コンテキスト。"
+  - "みず葉が隼太の魔法の秘密を知る経緯など、伏線の答えになる背景情報は意図的に含めていない。"
