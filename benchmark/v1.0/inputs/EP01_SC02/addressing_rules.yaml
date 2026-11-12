@@ -1,0 +1,15 @@
+addressing_rules:
+  izuna_shunta:
+    to_mizuha: "みず葉"
+    to_sumiyoshi: "奨太郎"
+
+  omiwa_mizuha:
+    to_shunta: "隼太"
+    to_sumiyoshi: "住吉"
+
+  sumiyoshi_shotaro:
+    to_shunta: "隼太"
+    to_mizuha: "みず葉"
+
+benchmark_note:
+  - "EP01_SC02に登場する3人の相互呼称だけを抽出した。"
