@@ -1,0 +1,37 @@
+benchmark:
+  id: "kannagi_ep01_sc02"
+  version: "1.0"
+  project: "かんなぎダイアリー / Kannabi Memorandum"
+  scene_id: "EP01_SC02"
+  scene_title: "何も起きない朝"
+  status: "frozen"
+
+provenance:
+  source_repository: "tokyoscarecrow/kannagi-diary-devlog"
+  reference_commit: "5ebb5a86d0683ccf8980fb468b644d3899dad097"
+  source_files:
+    - path: "raw/scene_cards/EP01/EP01_SC02.yaml"
+      blob_sha: "70540a9e408052080e4df316e6813382493f3322"
+      role: "scene_card_source"
+    - path: "raw/Config/Config_v2.2.yaml"
+      blob_sha: "4e30401c928a71d818edaf7e1100e8422e3d099e"
+      role: "character_style_and_episode_reference"
+    - path: "raw/Config/addressing_rules.yaml"
+      blob_sha: "e3f8b66effafaa8f376d3f43454c002f89260e71"
+      role: "addressing_rule_source"
+
+benchmark_structure:
+  reference:
+    - "reference/world_setting.md"
+    - "reference/characters_EP01_SC02.md"
+    - "reference/episode_context.md"
+  inputs:
+    - "inputs/EP01_SC02/scene_card.yaml"
+    - "inputs/EP01_SC02/character_context.yaml"
+    - "inputs/EP01_SC02/addressing_rules.yaml"
+    - "inputs/EP01_SC02/style_guide.yaml"
+
+experimental_note:
+  - "reference files describe human-authored narrative design context."
+  - "inputs files define the benchmark material supplied to the LLM."
+  - "production-story knowledge omitted from the experiment must not be reintroduced into benchmark v1.0."
