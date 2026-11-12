@@ -1,0 +1,85 @@
+experiment:
+  id: "01_gemma2_qwen3"
+  title: "Gemma 2 2B IT vs Qwen3-8B"
+  benchmark:
+    version: "v1.0"
+    scene: "EP01_SC02"
+    path: "benchmark/v1.0/inputs/EP01_SC02"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+  exact_library_versions:
+    status: "not confirmed in retained record"
+
+models:
+
+  gemma2_2b_it:
+    model_id: "google/gemma-2-2b-it"
+
+    input_layers:
+      full_stack:
+        - "scene_card.yaml"
+        - "character_context.yaml"
+        - "addressing_rules.yaml"
+        - "style_guide.yaml"
+
+    staged_tests:
+      - "Scene Card only"
+      - "Scene Card + Character Context + Addressing Rules"
+      - "generation parameter tuning"
+      - "Style Guide added"
+
+    tuned_generation:
+      do_sample: true
+      temperature: 0.7
+      top_p: 0.9
+      top_k: 50
+      repetition_penalty: 1.15
+      no_repeat_ngram_size: 4
+      max_new_tokens: 2000
+
+    seed:
+      value: null
+      note: "Seed value is not confirmed in the retained record for this Gemma 2 run."
+
+  qwen3_8b:
+    model_id: "Qwen/Qwen3-8B"
+
+    chat_template:
+      enable_thinking: false
+
+    seed: 42
+
+    input_layers:
+      - "scene_card.yaml"
+      - "character_context.yaml"
+      - "addressing_rules.yaml"
+      - "style_guide.yaml"
+
+    initial_generation:
+      note: "Gemma 2 tuned parameters were initially reused for comparison."
+      do_sample: true
+      temperature: 0.7
+      top_p: 0.9
+      top_k: 50
+      repetition_penalty: 1.15
+      no_repeat_ngram_size: 4
+      max_new_tokens: 2000
+
+    final_generation:
+      note: "Changed to Qwen3 non-thinking recommended-style settings."
+      do_sample: true
+      temperature: 0.7
+      top_p: 0.8
+      top_k: 20
+      min_p: 0.0
+      max_new_tokens: 2000
+
+comparison_policy:
+  same_narrative_specification: true
+  same_decoding_parameters: false
+  rationale: >
+    Practical comparison. Each model is evaluated with parameters appropriate
+    to the model rather than forcing one identical decoding setup across all models.
