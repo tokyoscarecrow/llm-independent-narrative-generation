@@ -1,0 +1,64 @@
+experiment:
+  id: "04_config_ablation"
+  title: "Qwen3-8B Config Ablation A0-A3"
+
+benchmark:
+  version: "v1.0"
+  scene: "EP01_SC02"
+  path: "benchmark/v1.0/inputs/EP01_SC02"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+
+model:
+  model_id: "Qwen/Qwen3-8B"
+  enable_thinking: false
+
+generation:
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.8
+  top_k: 20
+  min_p: 0.0
+  max_new_tokens: 2000
+
+seeds:
+  - 42
+  - 31415
+  - 27182
+
+conditions:
+
+  A0:
+    label: "Scene Card only"
+    inputs:
+      - "scene_card.yaml"
+
+  A1:
+    label: "Scene Card + Character Context"
+    inputs:
+      - "scene_card.yaml"
+      - "character_context.yaml"
+
+  A2:
+    label: "A1 + Addressing Rules"
+    inputs:
+      - "scene_card.yaml"
+      - "character_context.yaml"
+      - "addressing_rules.yaml"
+
+  A3:
+    label: "A2 + Style Guide"
+    inputs:
+      - "scene_card.yaml"
+      - "character_context.yaml"
+      - "addressing_rules.yaml"
+      - "style_guide.yaml"
+
+unsupported_addition_scale:
+  level_0: "Natural concrete realization of supplied information"
+  level_1: "Harmless supplementation"
+  level_2: "New story-meaningful information or event"
+  level_3: "Changes setting, plot, foreshadowing, or reveal structure"
