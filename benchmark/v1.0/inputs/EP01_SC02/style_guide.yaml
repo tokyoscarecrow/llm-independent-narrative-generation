@@ -1,0 +1,22 @@
+style_guide:
+  narrator_person: "三人称近接（隼太寄り）"
+  tense: "現在形ベース。回想のみ過去形"
+  register: "常体"
+
+  description:
+    explanation: "最小限"
+    priority:
+      - "行動"
+      - "表情"
+      - "感覚"
+
+  sentence_length:
+    short: "約70%"
+    medium: "約30%"
+
+  formatting:
+    dialogue: "「」"
+    inner_monologue: "（）"
+
+  readability:
+    kanji_kana_ratio: "一般的に読みやすい漢字・かなのバランス"
