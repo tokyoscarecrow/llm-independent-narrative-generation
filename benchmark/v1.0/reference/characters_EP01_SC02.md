@@ -1,16 +1,17 @@
-# Character Reference — EP01_SC02
+# キャラクター参照資料 — EP01_SC02
 
-> Human-authored production reference. This file contains more information than the benchmark Character Context. It is provided to distinguish the author's prior narrative design from the subset actually supplied to the LLM.
+> 人間が本文生成以前に作成していた制作側のキャラクター設定です。Benchmarkで使用する Character Context より多くの情報を含みます。  
+> このファイルは、**人間が事前に設計していた情報**と、**実験時にLLMへ実際に与えた情報**を区別するために公開しています。
 
 ## 飯綱隼太
 
-- Reading: いづな しゅんた
-- Age: 16
-- Role: 主人公
-- Affiliation: 六ッ川高校2年生
-- Attribute: 魔法者
+- 読み: いづな しゅんた
+- 年齢: 16
+- 役割: 主人公
+- 所属: 六ッ川高校2年生
+- 属性: 魔法者
 
-### Character
+### 人物像
 
 学業は中の上、運動も平凡。将来に大きな期待はなく、やや諦観気味。
 
@@ -20,23 +21,23 @@
 - Inner Desire: 抑圧されたプライドを解放したい
 - Change Arc: 「隠す」→「大事なものを守るために使いたい」
 
-### Speech
+### 話し方
 
-- First person: 僕
-- Register: 常体中心
-- Tempo: 短め。逡巡し、一拍置いて本音を言う傾向
-- Inner monologue: （）で簡潔に表記
+- 一人称: 僕
+- 文体: 常体中心
+- テンポ: 短め。逡巡し、一拍置いて本音を言う傾向
+- 内心: （）で簡潔に表記
 
 ---
 
 ## 大神みず葉
 
-- Reading: おおみわ みず葉
-- Age: 17
-- Role: ヒロイン／幼なじみ
-- Affiliation: 六ッ川高校2年生
+- 読み: おおみわ みず葉
+- 年齢: 17
+- 役割: ヒロイン／幼なじみ
+- 所属: 六ッ川高校2年生
 
-### Character
+### 人物像
 
 学業優秀で明るく人気者。
 
@@ -46,37 +47,45 @@
 - Inner Desire: 一生そばにいたい
 - Change Arc: 「庇護」→「成長を応援」
 
-### Speech / Behavior
+### 話し方・行動傾向
 
-- First person: わたし
-- Register: 常体中心
-- Tempo: 元気でハッキリ
+- 一人称: わたし
+- 文体: 常体中心
+- テンポ: 元気でハッキリ
 - 親しい相手との物理的距離が近い
 - 他者の表情をよく見る
 - 隼太への呼びかけでは、身体を寄せるなどの接触描写を伴う場合がある
 
-### Benchmark Note
+### Benchmark上の注意
 
-上記の「幼少期に隼太の魔法に救われた」「秘密を知っている」といった背景情報は、EP01_SC02のCharacter Contextでは意図的に除外されている。
+上記のうち、
+
+- 幼少期に隼太の魔法に救われた
+- 隼太の秘密を知っている
+- 自分がきっかけで隼太の人生が狂ったと感じている
+
+といった背景情報は、**EP01_SC02のCharacter Contextでは意図的に除外**しています。
+
+これらはScene Questionや伏線の答えそのものに近いため、事前にLLMへ与えると、シーン内で不必要に説明される可能性があるためです。
 
 ---
 
 ## 住吉奨太郎
 
-- Reading: すみよし しょうたろう
-- Age: 17
-- Role: 親友
-- Affiliation: 六ッ川高校2年生／クラスメート
+- 読み: すみよし しょうたろう
+- 年齢: 17
+- 役割: 親友
+- 所属: 六ッ川高校2年生／クラスメート
 
-### Character
+### 人物像
 
 陽気で楽天的。考えの浅い言動が多いが、隼太を励ます。
 
 - Outer Goal: 楽しい学校生活
 - Change Arc: 「楽して成功」→「本気で実現」
 
-### Speech
+### 話し方
 
-- First person: 俺
-- Register: 元気、明るい、親しみ
-- Tempo: 勢いがある
+- 一人称: 俺
+- 文体・印象: 元気、明るい、親しみ
+- テンポ: 勢いがある
