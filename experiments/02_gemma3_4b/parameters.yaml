@@ -1,0 +1,79 @@
+experiment:
+  id: "02_gemma3_4b"
+  title: "Gemma 3 4B Runtime Compatibility on Kaggle T4"
+  benchmark:
+    version: "v1.0"
+    scene: "EP01_SC02"
+  evaluation_status: "narrative quality not evaluated"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+  exact_library_versions:
+    status: "not fully confirmed in retained record"
+
+model:
+  model_id: "google/gemma-3-4b-it"
+
+attempts:
+
+  - id: "fp16_sampling"
+    dtype: "float16"
+    decoding: "sampling"
+    model_class: "conditional-generation family"
+    gpu_layout: "not fully confirmed"
+    result: "failed"
+    observed:
+      - "probability tensor contained inf/nan or invalid values"
+      - "CUDA assertion occurred"
+
+  - id: "fp16_greedy"
+    dtype: "float16"
+    decoding: "greedy"
+    result: "failed"
+    observed:
+      - "token 0 / <pad> repeated"
+      - "no normal Japanese prose"
+
+  - id: "fp32_two_gpu"
+    dtype: "float32"
+    decoding: "generation test"
+    model_class: "Gemma3ForCausalLM"
+    gpu_layout: "2 GPU split"
+    result: "failed"
+    observed:
+      - "newline-like output repeated"
+      - "bod-like token repeated"
+      - "no normal Japanese prose"
+
+  - id: "bf16_single_gpu"
+    dtype: "bfloat16"
+    decoding: "generation test"
+    gpu_layout: "single GPU"
+    result: "failed"
+    observed:
+      - "token 107 repeated"
+      - "newline-like output repeated"
+      - "no normal Japanese prose"
+
+  - id: "bnb_4bit"
+    quantization: "bitsandbytes 4bit"
+    result: "failed"
+    observed:
+      - "AssertionError around quantization state"
+
+  - id: "bnb_8bit"
+    quantization: "bitsandbytes 8bit"
+    model_class: "conditional-generation family"
+    result: "failed_for_generation"
+    observed:
+      - "model load progressed"
+      - "large volume of MatMul8bitLt casting warnings"
+      - "no stable normal Japanese prose"
+
+benchmark_execution:
+  prose_quality_evaluation: false
+  reason: >
+    Stable baseline inference could not be established, so the benchmark
+    output could not be meaningfully compared with other models.
