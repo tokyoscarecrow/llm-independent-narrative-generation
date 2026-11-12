@@ -23,3 +23,13 @@ Kannagi Diary Benchmark v1.0
 Qiita連載へのリンク
 
 ## License
+
+This repository uses multiple licenses.
+
+### Code
+Source code, notebooks, and execution scripts are licensed under the [MIT License](./LICENSE).
+
+### Benchmark and Documentation
+Narrative benchmark materials and related documentation under `benchmark/` are licensed under [CC BY-NC 4.0](./benchmark/LICENSE.md).
+
+The fictional work **「かんなぎダイアリー / Kannabi Memorandum」**, including its characters, settings, and narrative elements, remains the intellectual property of the author. The CC BY-NC 4.0 license permits reuse under its terms but does not transfer copyright ownership.
