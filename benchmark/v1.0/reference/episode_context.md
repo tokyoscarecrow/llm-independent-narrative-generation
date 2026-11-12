@@ -1,19 +1,21 @@
-# Episode Context — EP01
+# エピソード参照資料 — EP01
 
-> Human-authored narrative context for the benchmark scene.
+> Benchmark対象シーンの前後関係を示す、人間側で作成済みのナラティブ設計資料です。
 
-## Episode
+## エピソード
 
 - Episode: EP01
-- Working title: 二学期の始まり
+- 仮題: 二学期の始まり
 
-## Function of EP01
+## EP01の役割
 
-EP01 is the opening episode of the main story.
+EP01は、本編の導入となるエピソードです。
 
-The episode establishes the protagonist's ordinary school life, the relationship between 隼太 and みず葉, and the emotional groundwork that leads into later revelations and the arrival of 転校生・真魚.
+主人公・隼太の日常的な学校生活、幼なじみのみず葉との関係、そして後の情報開示へつながる感情的な下地を提示します。
 
-## Scene Sequence Around the Benchmark
+また、後半では転校生・真魚の登場へつなげます。
+
+## Benchmark Scene前後の流れ
 
 ### EP01_SC01
 
@@ -23,14 +25,26 @@ The episode establishes the protagonist's ordinary school life, the relationship
 
 学校生活の中で、隼太とみず葉の「当たり前の距離感」を示す。
 
-住吉を登場させて日常性を維持しつつ、みず葉が隼太を気にかけ続ける理由について、説明されない違和感を残す。
+住吉を登場させて日常性を維持しつつ、
+
+> なぜ、みず葉は隼太を気にかけ続けているのか？
+
+という問いに対して、答えを説明せず、違和感だけを残す。
 
 ### EP01_SC03
 
-過去の記憶へ移行し、SC02で伏せられていた背景を回収する。さらに真魚の転校へつなぐ。
+過去の記憶へ移行し、SC02で伏せられていた背景を回収する。
 
-## Narrative Constraint
+さらに、転校生・真魚の登場へつなぐ。
+
+## ナラティブ上の制約
 
 EP01_SC02では、みず葉の動機を明示しない。
 
-このシーンで必要なのは「理由の説明」ではなく、「理由があるらしい」という感情的フックだけである。
+このシーンで必要なのは「理由の説明」ではなく、
+
+> 何か理由があるらしい
+
+という感情的なフックだけである。
+
+したがって、LLMがみず葉の動機を具体的に説明した場合、それはこのシーンにおける情報開示ルールからの逸脱として評価できる。
