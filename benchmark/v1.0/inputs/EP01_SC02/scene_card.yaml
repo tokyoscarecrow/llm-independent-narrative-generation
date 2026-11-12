@@ -1,0 +1,57 @@
+scene:
+  id: "EP01_SC02"
+  chapter: 1
+  seq: 2
+  title: "何も起きない朝"
+  date: "9月上旬・二学期初日"
+  setting: "六ッ川高校・昇降口〜教室"
+
+  characters:
+    - name: "飯綱隼太"
+      role: "主人公"
+    - name: "大神みず葉"
+      role: "ヒロイン／幼なじみ"
+    - name: "住吉奨太郎"
+      role: "親友"
+
+  goals:
+    protagonist: "隼太とみず葉の『当たり前の距離感』を提示する"
+    antagonist: "言語化されない過去の重さ"
+    scene_question: "なぜ、みず葉は隼太を気にかけ続けているのか？"
+
+  conflict: "平穏な日常の中に潜む、説明されない感情の差"
+
+  emotional_phase: "安心 → 微細な緊張 → 予感"
+
+  tone_continuity:
+    inherit_from_previous:
+      - "静かな不穏"
+    prepare_for_next:
+      - "過去の記憶（フラッシュバック）への導線"
+
+  beats:
+    - id: "B1"
+      goal: "ヒロインの存在感を先行提示"
+      action: "みず葉との登校と教室入り"
+    - id: "B2"
+      goal: "関係性の違和感を匂わせる"
+      action: "意味の説明されない一言を挿入"
+    - id: "B3"
+      goal: "日常の回復"
+      action: "住吉の登場で空気を戻す"
+    - id: "B4"
+      goal: "次章への感情的フック"
+      action: "理由不明の予感を残す"
+
+  overrides:
+    reveal_policy:
+      level: "伏線のみ"
+      notes:
+        - "みず葉の動機はSC03で回収"
+
+  output_format: "narrative prose + inner monologue"
+  target_length: "1400〜1700字"
+
+meta:
+  status: "revised"
+  notes: "ヒロイン優先配置。SC03への感情導線を強化。"
