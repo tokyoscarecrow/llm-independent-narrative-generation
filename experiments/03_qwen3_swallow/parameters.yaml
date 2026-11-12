@@ -1,0 +1,45 @@
+experiment:
+  id: "03_qwen3_swallow"
+  title: "Qwen3-8B vs Qwen3-Swallow-8B"
+  benchmark:
+    version: "v1.0"
+    scene: "EP01_SC02"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+  exact_library_versions:
+    status: "not fully confirmed in retained record"
+
+models:
+
+  qwen3_8b:
+    model_id: "Qwen/Qwen3-8B"
+    enable_thinking: false
+    generation:
+      do_sample: true
+      temperature: 0.7
+      top_p: 0.8
+      top_k: 20
+      min_p: 0.0
+      max_new_tokens: 2000
+
+  qwen3_swallow_8b_sft_v0_2:
+    model_id: "tokyotech-llm/Qwen3-Swallow-8B-SFT-v0.2"
+    generation:
+      do_sample: true
+      temperature: 0.6
+      top_p: 0.95
+      top_k: 20
+    seeds:
+      - 42
+      - 31415
+      - 27182
+
+comparison_note:
+  strict_single_variable_ablation: false
+  reason: >
+    Qwen3-Swallow does not use the same thinking-toggle behavior as the
+    original Qwen3 setup. This experiment is treated as a practical model
+    comparison rather than a strict one-variable benchmark.
