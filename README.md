@@ -75,6 +75,7 @@ Benchmark v1.0 は作品の最新版ではなく、LLM比較実験の再現性�
 
 - [研究方法論 / Methodology](./docs/methodology.md)
 - [評価基準 / Evaluation Criteria](./docs/evaluation_criteria.md)
+- [研究大方針 / Research Direction](./docs/research_direction.md)
 
 ## Reproducibility / 再現性
 
