@@ -12,7 +12,7 @@ B3 × 3
 = 12 runs
 ```
 
-B0はExperiment 04 A3と同条件であるため、既存A3出力をbaselineとして再利用可能です。
+B0はExperiment 04 A3と同条件ですが、Experiment 05ではruntime / library差の混入を避けるため、既存A3出力をそのままbaselineにはせず、同じKaggle sessionでB0も3 Seedすべて再生成します。既存A3は歴史的比較資料としてのみ参照します。
 
 ---
 
