@@ -92,7 +92,7 @@ Experiment 04と同じ3 Seedを使用します。
 - 31415
 - 27182
 
-これにより、B0についてはExperiment 04 A3を比較基準として利用できます。
+Experiment 04 A3は歴史的な比較資料として参照できますが、Experiment 05では実行環境差を避けるため、B0も同じKaggle sessionで3 Seedすべて再生成します。
 
 ---
 
