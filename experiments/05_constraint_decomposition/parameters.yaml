@@ -1,0 +1,64 @@
+experiment:
+  id: "05_constraint_decomposition"
+  title: "High-level Constraint Decomposition"
+
+benchmark:
+  version: "v1.0"
+  scene: "EP01_SC02"
+  path: "benchmark/v1.0/inputs/EP01_SC02"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+
+model:
+  model_id: "Qwen/Qwen3-8B"
+  enable_thinking: false
+
+generation:
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.8
+  top_k: 20
+  min_p: 0.0
+  max_new_tokens: 2000
+
+seeds:
+  - 42
+  - 31415
+  - 27182
+
+baseline_inputs:
+  - "benchmark/v1.0/inputs/EP01_SC02/scene_card.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/character_context.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/addressing_rules.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/style_guide.yaml"
+
+conditions:
+
+  B0:
+    label: "Baseline"
+    additional_inputs: []
+
+  B1:
+    label: "Scene Boundary"
+    additional_inputs:
+      - "experiments/05_constraint_decomposition/constraints/scene_boundary.yaml"
+
+  B2:
+    label: "Reveal Constraints"
+    additional_inputs:
+      - "experiments/05_constraint_decomposition/constraints/reveal_constraints.yaml"
+
+  B3:
+    label: "Scene Boundary + Reveal Constraints"
+    additional_inputs:
+      - "experiments/05_constraint_decomposition/constraints/scene_boundary.yaml"
+      - "experiments/05_constraint_decomposition/constraints/reveal_constraints.yaml"
+
+comparison_policy:
+  strict_variable_control: true
+  note: >
+    Model, benchmark, generation parameters, and seeds remain fixed.
+    Only the additional constraint files differ across B0-B3.
