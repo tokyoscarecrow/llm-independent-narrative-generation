@@ -15,16 +15,22 @@ print("Transformers:", transformers.__version__)
 print("CUDA available:", torch.cuda.is_available())
 print("CUDA runtime:", torch.version.cuda)
 
-if torch.cuda.is_available():
-    print("GPU count:", torch.cuda.device_count())
-    for i in range(torch.cuda.device_count()):
-        print(
-            f"GPU {i}:",
-            torch.cuda.get_device_name(i),
-            "capability=",
-            torch.cuda.get_device_capability(i),
-        )
-    print("torch.cuda.is_bf16_supported():", torch.cuda.is_bf16_supported())
+if not torch.cuda.is_available():
+    raise RuntimeError(
+        "CUDA is not available. This runtime test requires a GPU-enabled "
+        "Kaggle session. Enable T4 x2 under Settings > Accelerator, restart "
+        "the session, then rerun this script."
+    )
+
+print("GPU count:", torch.cuda.device_count())
+for i in range(torch.cuda.device_count()):
+    print(
+        f"GPU {i}:",
+        torch.cuda.get_device_name(i),
+        "capability=",
+        torch.cuda.get_device_capability(i),
+    )
+print("torch.cuda.is_bf16_supported():", torch.cuda.is_bf16_supported())
 
 print("\n=== Load tokenizer ===")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
@@ -34,7 +40,7 @@ print("Has chat template:", bool(tokenizer.chat_template))
 print("\n=== Load model (FP16 / device_map=auto) ===")
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_ID,
-    torch_dtype=torch.float16,
+    dtype=torch.float16,
     device_map="auto",
 )
 model.eval()
@@ -51,24 +57,23 @@ chat = [
     }
 ]
 
-input_ids = tokenizer.apply_chat_template(
+inputs = tokenizer.apply_chat_template(
     chat,
     add_generation_prompt=True,
     tokenize=True,
+    return_dict=True,
     return_tensors="pt",
 )
 
-# With device_map=auto, input should begin on the embedding/input device.
 first_device = next(model.parameters()).device
-input_ids = input_ids.to(first_device)
+inputs = {k: v.to(first_device) for k, v in inputs.items()}
 
 torch.manual_seed(42)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(42)
+torch.cuda.manual_seed_all(42)
 
 with torch.no_grad():
     generated = model.generate(
-        input_ids,
+        **inputs,
         max_new_tokens=120,
         do_sample=True,
         top_p=0.95,
@@ -76,7 +81,8 @@ with torch.no_grad():
         repetition_penalty=1.05,
     )
 
-new_tokens = generated[0][input_ids.shape[1]:]
+prompt_len = inputs["input_ids"].shape[1]
+new_tokens = generated[0][prompt_len:]
 output = tokenizer.decode(new_tokens, skip_special_tokens=True)
 
 print("\n=== Generated text ===")
