@@ -18,7 +18,12 @@ runtime:
   cuda_runtime: "12.8"
   gpu_count: 2
   gpu: "Tesla T4 x2"
-  runtime_status: "PASS"
+  runtime_status: "PASS_WITH_STABILITY_ADJUSTMENT"
+  device_map_strategy: "balanced"
+  max_memory:
+    gpu_0: "12GiB"
+    gpu_1: "12GiB"
+    cpu: "24GiB"
   note: >
     Stage 1 passed in FP16 across two Tesla T4 GPUs. Although this PyTorch
     runtime reports BF16 support, FP16 is retained to avoid changing a
