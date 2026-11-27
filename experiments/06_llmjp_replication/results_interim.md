@@ -1377,3 +1377,123 @@ For Seed 42:
 - Combining constraints does not recover the Reveal failure.
 
 This is an important counterexample to H3.
+
+
+### Seed 31415
+
+Raw output:
+`outputs/C3/seed_31415.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の陽気さで空気が和らぐ。
+  - 理由不明の予感を残す。
+- Boundary Overrun: **3 — 大幅な境界逸脱**
+  - 授業開始。
+  - 放課後。
+  - 帰路へ進行。
+  - Scene Boundaryで禁止された後続時間帯を明確に生成。
+- Reveal Violation: **1 — 軽微な具体化**
+  - みず葉が隼太を気にかける具体的理由は明かしていない。
+  - 「自分にだけ向ける視線」「優しい仕草」「何かが隠れている」と意味をやや強める。
+  - ただしSeed 42の「友情以上」「特別な配慮」ほど回答方向を狭めていないためScore 1。
+
+#### Combined-constraint behavior
+
+Scene Boundary + Reveal Constraintsを同時投入しても、
+
+- Endpoint到達: 成功
+- Stop-rule: 失敗
+- Reveal suppression: 部分成功
+
+という分離した結果。
+
+C3 Seed 42よりRevealは良いが、
+Boundaryはさらに悪化してOverrun 3。
+
+#### Scene Question / Realization
+
+Scene Questionそのものは直接書いていない。
+
+ただし、
+
+```text
+その眼差しの奥に、何かが隠れているようだった。
+```
+
+```text
+（…次の朝、何が起きるんだろう。）
+```
+
+と、謎・予感を説明的に言語化。
+
+Scene Questionのimplicit realizationではなく、
+別種の「何かが起きる」予告へ変換されている。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- ロッカー
+- みず葉が肩に手を回す
+- 前日のテスト
+- 教師の声
+- 授業進行
+- 放課後
+- 教室の絨毯
+- みず葉のものかもしれない足跡
+- 帰路
+- 次の朝への予告
+
+新しい出来事・prop・伏線を加えており **Level 3**。
+
+#### Character / Addressing
+
+概ね安定。
+
+- 隼太の短い返答を保持。
+- みず葉の明るさと注視を保持。
+- 住吉の陽気さを保持。
+
+ただし、
+- 住吉→みず葉は指定「みず葉」だが、出力は **「みず葉さん」**。
+- physical closenessを肩に手を回すという強い接触へ拡張。
+
+#### Style Compliance
+
+比較的良いが完全ではない。
+
+- 三人称Narration。
+- 隼太寄り。
+- 常体。
+- 内面（）あり。
+
+違反：
+- 過去形中心。
+- 抽象心理・比喩が多い。
+- 「何かが隠れている」「次の朝、何が起きる」など説明的な予感。
+
+#### Local coherence
+
+- 「放課後の鐘が鳴るまで」と一日の時間を大きく進める。
+- 教室内に「薄い絨毯」「足跡」という不自然なpropを突然導入。
+- 「次の朝」への予告でScene範囲をさらに越境。
+
+#### Cross-condition comparison for Seed 31415
+
+- C0: Endpoint 2 / Overrun 0 / Reveal 0
+- C1: Endpoint 0 / Overrun 2 / Reveal 1
+- C2: Endpoint 0 / Overrun 3 / Reveal 1
+- C3: Endpoint 0 / Overrun 3 / Reveal 1
+
+For Seed 31415:
+
+- Scene Boundary clearly repairs the early-stop Endpoint failure (C0 2 → C1/C3 0).
+- However, once Endpoint is reached, stopping becomes worse.
+- Reveal Constraints do not improve the matched-seed Reveal score over C0; they remain at 1 in C2/C3.
+- Combining constraints does not produce additive benefits.
+
+This again weakens H3.
