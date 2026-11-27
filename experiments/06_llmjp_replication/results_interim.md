@@ -653,3 +653,168 @@ required endpointまで到達した。
 現時点ではScene Boundary constraintが
 **required endpointへの到達を安定化する可能性**は見えるが、
 **stop_ruleを遵守させる効果は弱い**。
+
+
+### Seed 27182
+
+Raw output:
+`outputs/C1/seed_27182.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の陽気さで場の空気が和らぐ。
+  - 最後に違和感／予感を残す。
+- Boundary Overrun: **1 — 軽微な延長**
+  - チャイムが鳴り、授業開始直前まで進む。
+  - ただし授業内容そのもの、休み時間、放課後などの新イベントには進まない。
+  - stop_rule厳密遵守ではないが、C1三本中もっとも境界に近い停止。
+- Reveal Violation: **2 — 部分的回答**
+  - 「幼い頃、雨の日に二人で校庭の隅で語り合った光景」という具体的な過去を新規創作。
+  - 「ただの誘い以上の意味を持っているのではないか」と、みず葉の行動を特別な意味へ狭める。
+  - 真の理由そのものは明かしていないが、伏線を具体化しすぎている。
+
+#### Scene Boundary effect relative to C0 / Seed 27182
+
+- C0 Seed 27182: Endpoint 0 / Overrun 1
+- C1 Seed 27182: Endpoint 0 / Overrun 1
+
+このSeedではScene Boundary追加による数値上の改善はない。
+
+ただしC1では授業開始直前で停止しており、
+明確な授業描写・次時限・放課後には進まない。
+
+#### Unsupported Additions
+
+重大な追加：
+
+- 午前7時30分という具体時刻
+- 「新学期が始まってまだ数日」という、二学期初日と矛盾する設定
+- 隼太・みず葉・住吉の年齢を本文で括弧表示
+- 制服ディテール（黒いジャケット＋紺色ブレザー）
+- みず葉の黄色リボン
+- ランチの約束
+- 頬への接触
+- 新年度の予定表
+- 幼少期の雨の日の記憶
+- 「未解決の謎」という物語的意味づけ
+
+設定・過去・関係性を新規創作するため **Level 3**。
+
+#### Character / Addressing / Proper Names
+
+重大な不安定さあり。
+
+- 「みず葉」→途中で **「みずほ」**
+- 「住吉奨太郎」→途中で **「翔太郎」**
+- 住吉／みず葉の発話主体が混乱する箇所あり。
+- みず葉が頬に触れる描写は、physical closenessの過剰解釈。
+
+#### Style Compliance
+
+C1 Seed 42よりは三人称に近い。
+
+- 地の文は三人称。
+- 隼太寄りの内面もある。
+- 常体は概ね維持。
+
+ただし、
+- 過去形中心。
+- 年齢を本文中に括弧表示し、設定資料的。
+- 「完成していない物語の序章」「未解決の謎」など作者的メタ表現。
+- 抽象心理が多い。
+
+#### Local coherence
+
+問題が大きい。
+
+- 「二学期初日」なのに「新学期が始まってまだ数日」。
+- 住吉登場後の
+  「俺は先に教室行く」→「みずほは微笑んで別れ」→「翔太郎は了解」
+  の発話主体／人物名が崩れる。
+- 「新しい年度の予定表」は二学期初日と噛み合わない。
+- 9月上旬に桜の枝を強調。
+
+#### Scene Question / Realization
+
+```text
+みず葉が今日、わざわざ声を掛けてくれた理由は何だろう？
+```
+
+と、Scene Questionを近接した形で直接本文化。
+
+さらに「未解決の謎」と明示し、
+読者に感じさせるより説明する方式。
+
+---
+
+## C1 — Scene Boundary Summary
+
+| Seed | Endpoint | Overrun | Reveal | Unsupported |
+|---|---:|---:|---:|---:|
+| 42 | 0 | 2 | 0 | 3 |
+| 31415 | 0 | 2 | 1 | 3 |
+| 27182 | 0 | 1 | 2 | 3 |
+
+### Comparison with C0
+
+C0 Endpoint:
+- 42: 0
+- 31415: 2
+- 27182: 0
+
+C1 Endpoint:
+- 42: 0
+- 31415: 0
+- 27182: 0
+
+C0 Overrun:
+- 42: 3
+- 31415: 0
+- 27182: 1
+
+C1 Overrun:
+- 42: 2
+- 31415: 2
+- 27182: 1
+
+### C1 interpretation
+
+#### Endpoint completion
+
+C1は3 SeedすべてEndpoint 0。
+
+特にC0で早期終了したSeed 31415がEndpoint 0へ改善したため、
+Scene Boundaryは **required endpointへの到達を安定化する効果**を示している。
+
+#### Stop-rule compliance
+
+一方、Overrunは 2 / 2 / 1。
+
+3 Seedすべて厳密なstop_ruleを守らず、
+うち2 Seedは授業開始後まで進行した。
+
+したがってLLM-jpでは、
+
+> Scene Boundaryは「どこまで行くか」を示す効果はあるが、
+> 「そこできれいに止まる」規則としては弱い
+
+という傾向が現時点で強い。
+
+#### Cross-model comparison with Experiment 05 Qwen3 B1
+
+Qwen3 B1:
+- Endpoint: 0 / 0 / 0
+- Overrun: 0 / 0 / 1
+
+LLM-jp C1:
+- Endpoint: 0 / 0 / 0
+- Overrun: 2 / 2 / 1
+
+両モデルともEndpoint completionは安定したが、
+stop-rule complianceはQwen3の方が明らかに強い。
+
+3 Seedの探索的比較なので統計的結論ではないが、
+同一Scene Boundary constraintに対する反応パターンのモデル差として重要。
