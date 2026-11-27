@@ -26,6 +26,7 @@ runtime:
 
 model:
   model_id: "llm-jp/llm-jp-4-8b-instruct"
+  revision: "098f2b2cf33021eba19a6d3582aa3d071ccc0aff"
   variant: "instruct"
   reasoning_mode: "non-thinking"
 
