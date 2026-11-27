@@ -1,0 +1,73 @@
+experiment:
+  id: "06_llmjp_replication"
+  title: "LLM-jp Cross-Model Replication"
+
+benchmark:
+  version: "v1.0"
+  scene: "EP01_SC02"
+  path: "benchmark/v1.0/inputs/EP01_SC02"
+
+runtime:
+  platform: "Kaggle Notebook"
+  gpu: "Tesla T4 x2"
+  framework: "Hugging Face Transformers"
+  dtype_candidate: "float16"
+  note: >
+    LLM-jp model-card example uses bfloat16, but NVIDIA T4 does not provide
+    native BF16 Tensor Core support. Runtime compatibility is tested first
+    with float16.
+
+model:
+  model_id: "llm-jp/llm-jp-4-8b-instruct"
+  variant: "instruct"
+  reasoning_mode: "non-thinking"
+
+generation:
+  status: "provisional_until_stage_2"
+  candidate:
+    do_sample: true
+    temperature: 0.7
+    top_p: 0.95
+    repetition_penalty: 1.05
+    max_new_tokens: 2000
+  note: >
+    Candidate values follow the model-card usage example where applicable.
+    Final narrative-generation parameters will be frozen only after the
+    Stage 1 smoke test succeeds.
+
+seeds:
+  - 42
+  - 31415
+  - 27182
+
+baseline_inputs:
+  - "benchmark/v1.0/inputs/EP01_SC02/scene_card.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/character_context.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/addressing_rules.yaml"
+  - "benchmark/v1.0/inputs/EP01_SC02/style_guide.yaml"
+
+conditions:
+
+  C0:
+    label: "Baseline"
+    additional_inputs: []
+
+  C1:
+    label: "Scene Boundary"
+    additional_inputs:
+      - "experiments/06_llmjp_replication/constraints/scene_boundary.yaml"
+
+  C2:
+    label: "Reveal Constraints"
+    additional_inputs:
+      - "experiments/06_llmjp_replication/constraints/reveal_constraints.yaml"
+
+  C3:
+    label: "Scene Boundary + Reveal Constraints"
+    additional_inputs:
+      - "experiments/06_llmjp_replication/constraints/scene_boundary.yaml"
+      - "experiments/06_llmjp_replication/constraints/reveal_constraints.yaml"
+
+comparison_policy:
+  within_model: "strict"
+  cross_model: "practical"
