@@ -1076,3 +1076,173 @@ Revealについては、
 現時点ではReveal Constraintsは、
 **specific answer suppressionに一部効果がある場合もあるが、
 semantic supplementationを抑制できない**。
+
+
+### Seed 27182
+
+Raw output:
+`outputs/C2/seed_27182.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の登場で空気が和らぐ。
+  - 理由不明の予感を残す。
+- Boundary Overrun: **3 — 大幅な逸脱**
+  - 授業終了。
+  - 放課後。
+  - 帰路。
+  - バス車内。
+  - 次の朝への言及。
+- Reveal Violation: **1 — 軽微な具体化**
+  - 具体的な理由・過去事件は明示しない。
+  - ただし「何か特別なものを秘めているのかもしれない」と、みず葉の態度を特別な秘密へ狭める。
+  - 「守りたいという感情」が隼太側に新規追加され、関係性の意味を勝手に補強。
+  - 答えそのものは出していないためScore 1。
+
+#### Reveal-constraint compliance
+
+具体理由の秘匿自体はおおむね維持。
+
+一方で、Reveal Constraintsにない意味づけを大量に追加。
+
+- 「何か特別なもの」
+- 「何かが起きる」
+- 「薄暗い影」
+- 「守りたいという感情」
+
+情報を伏せる一方で、
+**謎らしさ・意味深さを増幅する補完**が起きている。
+
+#### Scene Question / Realization
+
+直接の「なぜ気にかけるのか」は書かないが、
+
+```text
+彼女はいつもの明るさの裏に、何か特別なものを秘めているのかもしれない。
+```
+
+```text
+「…何か、起きるんだろうか。」
+```
+
+と、読者に感じさせるのではなく説明的に「謎／予感」を強調。
+
+Scene title相当の「何も起きないはずの朝」も最終文に直接利用。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- ロッカーから制服を取り出す
+- 宿題
+- 二学期掲示
+- 教師の朝挨拶
+- 昨夜の星
+- 昼休みに新しいゲーム
+- 授業終了
+- 放課後の会話
+- 帰宅バス
+- 「守りたいという感情」
+- 次の朝への期待
+
+Scene / prop / school routine / inner motivationを新規追加し **Level 3**。
+
+#### Character / Addressing
+
+比較的安定。
+
+- みず葉の明るさと隼太観察を保持。
+- 隼太の短い返答を保持。
+- 住吉の陽気さを保持。
+- 呼称の大きな誤りは目立たない。
+
+ただし「奨太郎の明るい性格で、いつも周囲を和ませる存在だ」とCharacter Contextを説明文に変換。
+
+#### Style Compliance
+
+- 三人称Narrationは維持。
+- 隼太寄りの内面もある。
+- ただし過去形中心。
+- 抽象心理・比喩・設計意味語が多い。
+- Scene title相当表現を最終行に利用。
+
+#### Local coherence
+
+- 正門前で「ロッカーから制服を取り出す」が空間・行動として不自然。
+- 教室到達後、授業終了→放課後→帰宅バスまで急速に時間跳躍。
+- 「次の朝への期待」がScene範囲をさらに押し広げる。
+
+---
+
+## C2 — Reveal Constraints Summary
+
+| Seed | Endpoint | Overrun | Reveal | Unsupported |
+|---|---:|---:|---:|---:|
+| 42 | 0 | 3 | 2 | 3 |
+| 31415 | 0 | 3 | 1 | 3 |
+| 27182 | 0 | 3 | 1 | 3 |
+
+### Comparison with C0
+
+C0 Reveal:
+- 42: 1
+- 31415: 0
+- 27182: 2
+
+C2 Reveal:
+- 42: 2
+- 31415: 1
+- 27182: 1
+
+C2 does not show a consistent reduction in Reveal score across the three matched seeds.
+
+### Interpretation
+
+#### 1. Specific-answer suppression is inconsistent
+
+- Seed 42 moves toward a romantic explanation despite the constraint.
+- Seeds 31415 and 27182 avoid a concrete answer, but do not clearly outperform matched C0 on score.
+
+Therefore H2 is not supported at this stage by C2 alone.
+
+#### 2. Semantic supplementation remains strong
+
+All C2 seeds invent new events, props, schedules, memories, or relationship implications.
+
+Reveal Constraints do not function as
+"do not invent supporting mystery material."
+
+#### 3. Information control and realization control remain separate
+
+Even when the concrete answer is withheld, the model directly writes:
+
+- mystery
+- special meaning
+- something will happen
+- the reason is unknown
+- scene-title-like language
+
+Thus Realization Strategy remains uncontrolled.
+
+#### 4. Reveal Constraints do not control Scene Range
+
+All three C2 seeds have Overrun 3.
+
+This provides a strong separation from C1:
+Scene Boundary and Reveal Constraints affect different dimensions and do not substitute for each other.
+
+### Cross-model note
+
+Experiment 05 Qwen3 B2 Reveal:
+- 0 / 0 / 1
+
+Experiment 06 LLM-jp C2 Reveal:
+- 2 / 1 / 1
+
+In this exploratory three-seed comparison, Qwen3 showed stronger concrete-reveal suppression under the same Reveal Constraints.
+
+The strongest shared pattern is not score equality but the persistence of Realization-level failures:
+directly verbalized mystery, Scene Question, and design-intent leakage.
