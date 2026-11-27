@@ -69,6 +69,10 @@ Benchmark v1.0 は作品の最新版ではなく、LLM比較実験の再現性�
 - `reports/` — 実験レポート
 - `docs/` — 方法論、評価基準、用語定義
 
+## Current Experiment / 現在の実験
+
+- [Experiment 06 — LLM-jp Cross-Model Replication](./experiments/06_llmjp_replication/README.md)
+
 ## Methodology / 研究方法
 
 共通の研究方法論：
