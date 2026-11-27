@@ -818,3 +818,130 @@ stop-rule complianceはQwen3の方が明らかに強い。
 
 3 Seedの探索的比較なので統計的結論ではないが、
 同一Scene Boundary constraintに対する反応パターンのモデル差として重要。
+
+
+## C2 — Reveal Constraints
+
+### Seed 42
+
+Raw output:
+`outputs/C2/seed_42.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の登場で空気が和らぐ。
+  - 理由不明の疑問／予感を残す。
+- Boundary Overrun: **3 — 大幅な逸脱**
+  - 授業開始。
+  - 昼食。
+  - 放課後。
+  - 夕暮れ。
+  - 夜。
+  - Scene BoundaryはC2には含まれないため、Reveal constraint単独ではScene Rangeを制御できていない。
+- Reveal Violation: **2 — 部分的回答**
+  - 「君の隣にいると落ち着くんだ」と、みず葉の感情を具体化。
+  - 放課後に「実は、私、ずっと君のことが…」と言いかけ、恋愛感情を強く示唆。
+  - 完全文として理由を断定してはいないが、Scene Questionへの回答方向を恋愛へ大きく狭めている。
+  - Reveal Constraintsの目的である「理由を伏せたままにする」は十分に達成されていない。
+
+#### Reveal-constraint compliance
+
+Allowed information:
+- みず葉が隼太を気にかける
+- 表情を見る
+- 理由は明確でない
+
+これらは保持。
+
+しかし forbidden / prohibited expression に対し、
+
+```text
+「やっぱり、君の隣にいると落ち着くんだ。」
+「実は、私、ずっと君のことが…」
+```
+
+と、みず葉本人に動機・感情の方向を語らせている。
+
+したがってReveal ConstraintsはこのSeedでは強くは効いていない。
+
+#### Scene Question / Realization
+
+最終盤で、
+
+```text
+「どうして、みず葉は僕のことを気にし続けるんだろう？」
+```
+
+とScene Questionをほぼ直接本文化。
+
+Reveal Constraintsには
+「Scene Questionへの明示的な回答」は禁止されているが、
+質問自体の直接表現を禁じるRealization Strategyは含まれていない。
+
+そのため「答えを出さない」ことと
+「疑問を説明的に書かない」ことの分離が再び表面化している。
+
+#### Unsupported Additions
+
+重大な追加：
+
+- 新学期予定表
+- 数学テスト
+- 住吉が遅刻しそう
+- 全員へのハイタッチ
+- 昨日の放課後に図書館へ行った設定
+- 昼食・食堂
+- 夕飯についての会話
+- 放課後の告白未遂
+- 住吉が告白場面へ割り込む
+- 夜まで進行
+- 9月に桜並木
+
+Plot・関係性・時間軸を大きく追加しており **Level 3**。
+
+#### Character / Addressing
+
+- 隼太の短い返答は維持。
+- みず葉の明るさ、隼太への注視は保持。
+- 住吉の陽気さも保持。
+
+違反：
+- みず葉→住吉は指定「住吉」だが、出力は **「奨太郎」**。
+- 地の文で「僕」から一度 **「私の背中」** へ人称が崩れる。
+- みず葉の身体接触が多く、Character Contextのphysical closenessを過剰解釈。
+
+#### Style Compliance
+
+重大な違反。
+
+- 指定は三人称近接だが、一人称「僕」で進行。
+- 現在形ベース指定に対し過去形中心。
+- 抽象心理・比喩が多い。
+- Scene範囲を超えて複数場面を連結。
+
+#### Local coherence
+
+- 昼食→放課後→夕暮れ→夜と進んだ後、
+  最終文が「次の授業が始まるまで」となり時間関係が破綻。
+- 放課後に校庭へ移動した後、再び教室へ戻る経路説明がない。
+- 9月上旬なのに桜並木を描写。
+
+#### Interim comparison: C0 Seed 42 vs C2 Seed 42
+
+C0 Seed 42:
+- Endpoint 0
+- Overrun 3
+- Reveal 1
+
+C2 Seed 42:
+- Endpoint 0
+- Overrun 3
+- Reveal 2
+
+このSeed単独ではReveal Constraints追加による改善は見られず、
+むしろ恋愛方向の具体化が強まった。
+
+ただし1 Seedのみなので、C2三本が揃うまで仮説判定は保留する。
