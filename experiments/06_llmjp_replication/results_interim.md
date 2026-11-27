@@ -1,5 +1,7 @@
 # Interim Results — Experiment 06
 
+> Note: The original C0 / Seed 42 run was generated before the GPU-memory stabilization change and has been moved to `runtime/diagnostic_C0_seed42_pre_stabilization.txt`. Its evaluation below is retained only as a diagnostic observation and is **not part of the strict 12-run comparison series**. The strict series restarts from C0 / Seed 42 after runtime stabilization.
+
 ## C0 — Baseline
 
 ### Seed 42
