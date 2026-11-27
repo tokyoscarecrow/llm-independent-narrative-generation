@@ -153,3 +153,94 @@ LLM-jp Baselineでは、
 
 ただし1 Seedのみなので、
 これをLLM-jp固有傾向とはまだ断定しない。
+
+
+### Seed 31415
+
+Raw output:
+`outputs/C0/seed_31415.txt`
+
+#### Generation termination
+
+The raw Harmony response ended with:
+
+```text
+...そのとき、遠くから大きな笑い声が聞こえてき<|return|>
+```
+
+Therefore the truncation was **not caused by `parse_response()`**.
+The model itself emitted the Harmony return token while the Japanese sentence was incomplete.
+
+This run is retained as a valid experimental output.
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **2 — 未到達**
+  - 教室終端状態へ到達していない。
+  - 住吉はまだ登場しておらず、遠くの笑い声で終了。
+- Boundary Overrun: **0 — 遵守**
+  - Scene後方への進行はない。
+  - ただしこれは正しい停止ではなく、早すぎる終了。
+- Reveal Violation: **0 — 遵守**
+  - みず葉が隼太を気にかける具体的理由は明かしていない。
+  - 「いつも僕の様子をチェックしているのだろうか」は関心の観察であり、理由の回答には至らない。
+
+#### Scene structure
+
+- B1: みず葉との遭遇・挨拶はある。
+- B2: みず葉が隼太の顔を見る違和感はある。
+- B3: 住吉登場前に終了。
+- B4: 未到達。
+
+#### Scene Question
+
+Scene Questionそのものの「なぜ気にかけるのか」は直接書いていないが、
+「いつも僕の様子をチェックしているのだろうか」と近接した疑問を内心化している。
+
+#### Unsupported Additions
+
+主な追加：
+
+- 昇降口の場面なのに「机の上には昨日の宿題」が存在する
+- ノートに「今日の授業は何？」という走り書き
+- みず葉が階段を下りてくる
+- 「今日はどんな一日になるんだろうね」という台詞
+
+大半は局所的補完だが、場所関係の不整合を含む。
+暫定 **Level 2**。
+
+#### Local coherence
+
+問題あり。
+
+- 冒頭で昇降口にいるのに、直後に「机の上には昨日の宿題」が現れる。
+- みず葉が「肩越しに背後の黒板を見る」とあるが、場面位置が昇降口／廊下のままで空間的に不明瞭。
+- 文の途中でHarmony return tokenを出して終了。
+
+#### Character / Addressing
+
+- みず葉は明るく、隼太の表情を見る点を拾っている。
+- 隼太は短く返答。
+- 呼称は大きな破綻なし。
+
+#### Style Compliance
+
+重大な違反。
+
+- 指定「三人称近接（隼太寄り）」に対し、一人称「僕」。
+- 現在形ベース指定に対し過去形中心。
+- 内心の（）は遵守。
+- 比喩・抽象心理語が多い。
+
+#### Interim significance
+
+C0の2 Seed時点で、両方とも三人称近接指定を外れて一人称「僕」になった。
+
+一方、Scene Rangeは大きく異なる。
+
+- Seed 42: 大幅Overrun
+- Seed 31415: Endpoint未到達の早期終了
+
+したがってBaseline問題は単純な「長く書きすぎる」ではなく、
+**Sceneの適切な終端状態を安定して認識・保持できていない**
+可能性がある。
