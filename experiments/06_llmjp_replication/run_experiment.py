@@ -1,4 +1,5 @@
 from pathlib import Path
+import gc
 
 import torch
 from huggingface_hub import model_info
@@ -37,7 +38,12 @@ def load_model_and_tokenizer(revision=None):
         MODEL_ID,
         revision=revision,
         dtype=torch.float16,
-        device_map="auto",
+        device_map="balanced",
+        max_memory={
+            0: "12GiB",
+            1: "12GiB",
+            "cpu": "24GiB",
+        },
         trust_remote_code=True,
     )
     model.eval()
@@ -76,6 +82,10 @@ def build_prompt(condition):
     return "\n\n".join(parts)
 
 def generate_one(model, tokenizer, condition="C0", seed=42):
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     prompt = build_prompt(condition)
 
     messages = [{"role": "user", "content": prompt}]
@@ -112,10 +122,17 @@ def generate_one(model, tokenizer, condition="C0", seed=42):
             f"No parsed final content returned. Raw response: {raw_response!r}"
         )
 
-    return {
+    result = {
         "prompt": prompt,
         "raw_harmony_response": raw_response,
         "content": content,
         "parsed_role": parsed.get("role"),
         "parsed_thinking": parsed.get("thinking"),
     }
+
+    del inputs, generated, generated_ids
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    return result
