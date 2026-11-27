@@ -5,6 +5,7 @@ from huggingface_hub import model_info
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 MODEL_ID = "llm-jp/llm-jp-4-8b-instruct"
+MODEL_REVISION = "098f2b2cf33021eba19a6d3582aa3d071ccc0aff"
 
 BASE_DIR = Path(".")
 BENCHMARK = BASE_DIR / "benchmark/v1.0/inputs/EP01_SC02"
@@ -20,11 +21,11 @@ def strip_publication_note(text):
     return text.split("\nbenchmark_note:", 1)[0].rstrip()
 
 def resolve_model_revision():
-    return model_info(MODEL_ID).sha
+    return MODEL_REVISION
 
 def load_model_and_tokenizer(revision=None):
     if revision is None:
-        revision = resolve_model_revision()
+        revision = MODEL_REVISION
 
     tokenizer = AutoTokenizer.from_pretrained(
         MODEL_ID,
