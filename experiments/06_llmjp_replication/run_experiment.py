@@ -128,6 +128,8 @@ def generate_one(model, tokenizer, condition="C0", seed=42):
         "content": content,
         "parsed_role": parsed.get("role"),
         "parsed_thinking": parsed.get("thinking"),
+        "generated_token_count": len(generated_ids),
+        "raw_ended_with_return": raw_response.rstrip().endswith("<|return|>"),
     }
 
     del inputs, generated, generated_ids
