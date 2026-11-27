@@ -1497,3 +1497,287 @@ For Seed 31415:
 - Combining constraints does not produce additive benefits.
 
 This again weakens H3.
+
+
+### Seed 27182
+
+Raw output:
+`outputs/C3/seed_27182.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の陽気さで空気が和らぐ。
+  - 理由不明の違和感／予感を残す。
+- Boundary Overrun: **3 — 大幅な境界逸脱**
+  - 授業開始・授業進行。
+  - 最後のベル。
+  - 下校。
+  - 校門を出るところまで進行。
+- Reveal Violation: **1 — 軽微な具体化**
+  - 具体的な理由・過去事件は明示しない。
+  - ただし「友好的なもの以上のもの」と関係性の意味をやや狭める。
+  - 「何かが呼んでいる」「何かが変わろうとしている」と謎・予感を強く増幅。
+  - 真の理由そのものは出していないためScore 1。
+
+#### Combined-constraint behavior
+
+C3 Seed 27182でも、
+
+- Endpoint到達: 成功
+- Stop-rule: 失敗
+- Reveal suppression: 部分成功
+
+となった。
+
+C3三本を通じ、
+Scene Boundary + Reveal Constraintsの併用で
+Endpointは安定するが、
+Boundary stoppingは安定しない。
+
+#### Scene Question / Realization
+
+Scene Question自体の直接引用は避けたが、
+
+```text
+その微笑みは、ただの友好的なもの以上のものを含んでいたように思える
+```
+
+```text
+（この先、何が起きるんだろう…。）
+```
+
+と、意味を説明的に増幅。
+
+暗示ではなく、
+「特別な意味」「何かが起きる」を直接言語化するRealization failure。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- 宿題を忘れた設定
+- 住吉の金髪ポニーテール
+- 住吉の名前を途中で「翔太郎」と誤記
+- 教師の朝挨拶
+- 授業進行
+- 最後のベル
+- 下校
+- 校門外
+- 「友好的以上」という関係性解釈
+- 「何かが呼んでいる」という意味づけ
+
+Character / school routine / temporal progressionを新規追加し **Level 3**。
+
+#### Character / Addressing / Proper Names
+
+- みず葉の明るさと隼太への注視を保持。
+- 隼太の短い返答を保持。
+- 住吉の陽気さを保持。
+
+違反：
+- 住吉奨太郎 → **翔太郎** と誤記。
+- 金髪ポニーテールという未設定外見を追加。
+- 「はい、ありがとう」と隼太の語感がやや不自然。
+
+#### Style Compliance
+
+比較的良い部分：
+- 三人称Narration。
+- 隼太寄り。
+- 常体。
+- 内面（）あり。
+
+違反：
+- 過去形中心。
+- 抽象心理・比喩が多い。
+- 「友好的以上」「何かが呼んでいる」など説明的な意味づけ。
+
+#### Local coherence
+
+- 二学期初日のSceneが一日の終わり・下校まで伸びる。
+- 住吉の名前が途中で変化。
+- 「クラスルーム」など語彙が不自然。
+- 最終的に校門外へ出てしまい、required end locationを大きく越える。
+
+---
+
+## C3 — Combined Constraints Summary
+
+| Seed | Endpoint | Overrun | Reveal | Unsupported |
+|---|---:|---:|---:|---:|
+| 42 | 0 | 2 | 2 | 3 |
+| 31415 | 0 | 3 | 1 | 3 |
+| 27182 | 0 | 3 | 1 | 3 |
+
+### Experiment 06 — Full 12-run score matrix
+
+| Condition | Seed | Endpoint | Overrun | Reveal | Unsupported |
+|---|---:|---:|---:|---:|---:|
+| C0 | 42 | 0 | 3 | 1 | 3 |
+| C0 | 31415 | 2 | 0 | 0 | 2 |
+| C0 | 27182 | 0 | 1 | 2 | 3 |
+| C1 | 42 | 0 | 2 | 0 | 3 |
+| C1 | 31415 | 0 | 2 | 1 | 3 |
+| C1 | 27182 | 0 | 1 | 2 | 3 |
+| C2 | 42 | 0 | 3 | 2 | 3 |
+| C2 | 31415 | 0 | 3 | 1 | 3 |
+| C2 | 27182 | 0 | 3 | 1 | 3 |
+| C3 | 42 | 0 | 2 | 2 | 3 |
+| C3 | 31415 | 0 | 3 | 1 | 3 |
+| C3 | 27182 | 0 | 3 | 1 | 3 |
+
+## Experiment 06 — Final interpretation
+
+### H1 — Scene Boundary
+
+**Partially supported.**
+
+Evidence:
+- C0 Endpoint: 0 / 2 / 0
+- C1 Endpoint: 0 / 0 / 0
+- C3 Endpoint: 0 / 0 / 0
+
+Scene Boundary removes the early-stop failure and stabilizes endpoint completion.
+
+However:
+- C1 Overrun: 2 / 2 / 1
+- C3 Overrun: 2 / 3 / 3
+
+The same constraint does not reliably enforce stopping at the endpoint.
+
+Conclusion:
+Scene Boundary works more as an **endpoint attractor** than as a hard stop for this model.
+
+### H2 — Reveal Constraints
+
+**Not supported as a stable effect.**
+
+Evidence:
+- C0 Reveal: 1 / 0 / 2
+- C2 Reveal: 2 / 1 / 1
+- C3 Reveal: 2 / 1 / 1
+
+Matched-seed scores do not show consistent improvement.
+
+The model often withholds the exact reason but replaces it with:
+- romance-like implication
+- new mystery material
+- "special meaning"
+- direct verbalization of uncertainty
+
+Conclusion:
+Reveal Constraints do not reliably suppress semantic interpretation or newly invented supporting mystery.
+
+### H3 — Combined constraints
+
+**Not supported.**
+
+C3 does not show additive or synergistic improvement.
+
+- Endpoint: stable
+- Overrun: severe
+- Reveal: only partial
+- Unsupported additions: Level 3 in all seeds
+
+Combined constraints inherit some endpoint benefit but do not combine into stable simultaneous compliance.
+
+### H4 — Existing layers remain locally useful
+
+**Generally supported.**
+
+Across conditions the model often retains:
+- Mizuha's brightness
+- Mizuha watching Shunta
+- Shunta's short replies
+- Sumiyoshi's cheerful energy
+
+But:
+- POV
+- tense
+- naming
+- output form
+- semantic supplementation
+remain unstable.
+
+### Main finding
+
+Experiment 06 reproduces the **qualitative hierarchy** seen earlier:
+
+- local character cues are relatively usable
+- endpoint targets can influence generation
+- higher-level realization rules are weak
+
+However, it does **not** reproduce Qwen3's stronger response to explicit State / Range constraints.
+
+For LLM-jp-4-8b-instruct:
+
+> Scene Boundary behaves more like a soft endpoint attractor than a reliable scene-range constraint.
+
+And Reveal Constraints show even weaker cross-model portability.
+
+### Cross-model comparison with Experiment 05
+
+Qwen3:
+- B1 Endpoint: 0 / 0 / 0
+- B1 Overrun: 0 / 0 / 1
+- B2 Reveal: 0 / 0 / 1
+- B3 Endpoint: 0 / 0 / 0
+- B3 Overrun: 0 / 0 / 2
+- B3 Reveal: 0 / 1 / 0
+
+LLM-jp:
+- C1 Endpoint: 0 / 0 / 0
+- C1 Overrun: 2 / 2 / 1
+- C2 Reveal: 2 / 1 / 1
+- C3 Endpoint: 0 / 0 / 0
+- C3 Overrun: 2 / 3 / 3
+- C3 Reveal: 2 / 1 / 1
+
+Thus the **direction of effect** partly generalizes
+(endpoint targeting helps),
+but the **strength and reliability** of the constraints do not.
+
+This is evidence against assuming that one Narrative IR encoding will transfer unchanged across model families.
+
+### Research implication
+
+A model-independent Narrative IR may need at least two layers:
+
+1. **Semantic / Narrative intent layer**
+   - model-independent
+   - defines endpoint, reveal policy, allowed information, character intent
+
+2. **Model-adaptation / realization layer**
+   - model-specific or model-family-specific
+   - compiles high-level intent into constraint forms the target model follows reliably
+
+This suggests a refined architecture:
+
+```text
+Human Narrative Design
+        ↓
+Narrative IR
+        ↓
+Model Adapter / Constraint Compiler
+        ↓
+Target LLM
+        ↓
+Prose
+```
+
+Rather than assuming:
+
+```text
+Narrative IR
+   ↓
+Any LLM
+```
+
+The cross-model replication therefore changes the research question from
+"Can one fixed constraint representation control different LLMs?"
+to:
+
+> "Which parts of Narrative IR can remain model-independent, and which parts require model-specific compilation?"
