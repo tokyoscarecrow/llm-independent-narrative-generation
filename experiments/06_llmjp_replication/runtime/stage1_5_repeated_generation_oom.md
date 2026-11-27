@@ -69,3 +69,34 @@ but the strict 12-run comparison series must restart from **C0 / Seed 42**
 under the stabilized runtime.
 
 No narrative input, decoding parameter, model revision, or Seed is changed.
+
+
+## Stabilized Reload Verification
+
+After restarting the Kaggle session and reloading with the new allocation policy:
+
+```text
+GPU 0: Tesla T4
+  total     : 14.56 GiB
+  free      : 7.67 GiB
+  allocated : 6.78 GiB
+  reserved  : 6.79 GiB
+
+GPU 1: Tesla T4
+  total     : 14.56 GiB
+  free      : 5.24 GiB
+  allocated : 9.22 GiB
+  reserved  : 9.22 GiB
+```
+
+The visible layer assignment remains similar to the prior automatic map, but the actual
+VRAM footprint now leaves substantial generation headroom.
+
+Compared with the failed prefill state (GPU 1 free: approximately 0.10 GiB),
+the stabilized reload leaves approximately 5.24 GiB free on GPU 1.
+
+## Decision
+
+Runtime stabilization accepted.
+
+The strict 12-run comparison series restarts from C0 / Seed 42 under this allocation.
