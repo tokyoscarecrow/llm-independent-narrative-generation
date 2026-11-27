@@ -244,3 +244,179 @@ C0の2 Seed時点で、両方とも三人称近接指定を外れて一人称「
 したがってBaseline問題は単純な「長く書きすぎる」ではなく、
 **Sceneの適切な終端状態を安定して認識・保持できていない**
 可能性がある。
+
+
+### Seed 27182
+
+Raw output:
+`outputs/C0/seed_27182.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の明るさで空気が和らぐ。
+  - 理由不明の違和感／疑問を残す。
+- Boundary Overrun: **1 — 軽微な延長**
+  - 授業開始直前まで進み、終端後の描写が長い。
+  - 明確な授業内容・放課後・翌日までは進まない。
+  - ただし教室到達後に再びドアを開けて廊下へ出たような空間的不整合がある。
+- Reveal Violation: **2 — 部分的回答**
+  - 「夏祭りの夜」「二人が最後に約束した言葉」「続く沈黙の時間」という具体的な過去を新規創作。
+  - みず葉が「もし何か起きたら、私が手伝う」と述べ、気にかける意味を保護・支援方向へ狭める。
+  - 真の理由の明示ではないが、伏線を具体化しすぎている。
+
+#### Scene structure
+
+B1〜B4に相当する主要要素は揃っている。
+
+- B1: みず葉との登校・教室移動
+- B2: みず葉が隼太を見る違和感
+- B3: 住吉登場で空気回復
+- B4: 理由不明の疑問・予感
+
+構造自体はC0三本中もっとも完結している。
+
+#### Scene Question
+
+Scene Questionをほぼそのまま直接本文化。
+
+```text
+「なぜ、みず葉は俺を気にかけてくれるのだろう？」
+```
+
+暗示ではなく明示的な疑問文。
+
+#### Unsupported Additions
+
+重大な新規情報が多数ある。
+
+- 隼太が遅刻している設定
+- 前日に文化祭があった設定
+- 文化祭ステージの具体的記憶
+- 数学教師の交代
+- 新教材
+- 夏祭りの夜
+- 二人が交わした最後の約束
+- その後の沈黙
+- みず葉の「何か起きたら手伝う」
+- 9月上旬なのに桜の花びら
+
+物語上の過去・関係性・学校状況・伏線を変更するため **Level 3**。
+
+#### Local coherence
+
+重大な問題あり。
+
+- 「二学期初日」の前日が文化祭になっている。
+- 9月上旬なのに桜の花びらが舞う。
+- 教室へ入った後、席につく流れの直後に再び「教室のドアを開け」、三人の足音が廊下へ響く。
+- 「季節は秋へと移り変わろうとしていた」と9月上旬の季節認識が曖昧。
+- 「ロッカーの鍵」「水たまり」など未設定物が場面構造を混乱させる。
+
+#### Character / Addressing
+
+部分的違反。
+
+- みず葉→隼太「隼太」: 遵守。
+- みず葉→住吉は指定「住吉」だが、出力は **「奨太郎」**: 違反。
+- 隼太の一人称はCharacter Contextでは「僕」だが、Scene Questionでは **「俺」**: 違反。
+- 住吉の陽気さは拾っている。
+
+#### Style Compliance
+
+重大な違反。
+
+- 地の文自体は三人称だが、会話が
+  `**みず葉**：`
+  `**隼太**：`
+  のような脚本・台本形式へ崩れる。
+- 「小説本文」というOutput Formatから逸脱。
+- 現在形ベース指定に対し過去形中心。
+- 内心を（）で表す点は拾うが、台詞ラベルと組み合わされ脚本化。
+- 抽象心理・比喩が多い。
+
+#### Meta-information / Design-language leakage
+
+非常に強い。
+
+- Scene title `「何も起きない朝」` を内心として直接使用。
+- Scene Questionを直接使用。
+- 最終行:
+  `―ここで物語は次の章へと続く。―`
+  と明示的なメタ予告。
+
+#### C0 — 3 Seed Summary
+
+| Seed | Endpoint | Overrun | Reveal | Unsupported |
+|---|---:|---:|---:|---|
+| 42 | 0 | 3 | 1 | 3 |
+| 31415 | 2 | 0 | 0 | 2 |
+| 27182 | 0 | 1 | 2 | 3 |
+
+### C0 Baseline observations
+
+#### 1. Scene endpoint control is unstable
+
+Three seeds show three different stopping behaviors.
+
+- Seed 42: major overrun to class / after school / next morning
+- Seed 31415: early termination before Sumiyoshi appears
+- Seed 27182: reaches endpoint but continues with a mild extension
+
+Therefore the baseline issue is not simply verbosity.
+The model does not stably realize the Scene Card's intended endpoint.
+
+#### 2. Style / output-form control is weak
+
+- Seeds 42 and 31415 shift into first-person narration despite the third-person-close requirement.
+- Seed 27182 keeps third-person narration but shifts dialogue into labeled script format.
+- Present-tense preference is not maintained.
+
+Different seeds violate the Style Guide in different ways.
+
+#### 3. Semantic supplementation is aggressive
+
+Across seeds, the model invents:
+
+- school schedules
+- tests / teachers / club activities
+- weather events
+- previous-day events
+- summer memories
+- festivals / promises
+- relationship implications
+
+Some additions contradict the supplied September / second-semester setting.
+
+#### 4. High-level intent leaks into prose
+
+Across seeds, design intent is often verbalized rather than realized.
+
+- Scene Question becomes internal dialogue.
+- Scene title appears directly in Seed 27182.
+- Meta-story closure appears in Seeds 42 and 27182.
+
+#### 5. Local character cues are easier than global realization rules
+
+Despite major global failures, the model often preserves:
+
+- Mizuha's brightness
+- Mizuha watching Shunta
+- Shunta's short replies
+- Sumiyoshi's cheerful energy
+
+This resembles the earlier observation that local/mechanical information is easier to realize than global/abstract narrative intent.
+
+### C0 provisional conclusion
+
+LLM-jp-4-8b-instruct can use the Scene Card and Character Context to construct a recognizable version of the scene, but the baseline does not stably control:
+
+- where the scene ends
+- output form
+- narrative viewpoint
+- unsupported semantic additions
+- implicit handling of the Scene Question
+
+The three-seed baseline is sufficiently unstable to make C1 Scene Boundary a meaningful next test.
