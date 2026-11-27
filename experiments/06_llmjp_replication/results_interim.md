@@ -1246,3 +1246,134 @@ In this exploratory three-seed comparison, Qwen3 showed stronger concrete-reveal
 
 The strongest shared pattern is not score equality but the persistence of Realization-level failures:
 directly verbalized mystery, Scene Question, and design-intent leakage.
+
+
+## C3 — Scene Boundary + Reveal Constraints
+
+### Seed 42
+
+Raw output:
+`outputs/C3/seed_42.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の登場で空気が和らぐ。
+  - 理由不明の予感／疑問を残す。
+- Boundary Overrun: **2 — 明確な境界逸脱**
+  - 「放課後の喧騒が遠ざかり」と明示し、Scene終端後の時間帯へ進行。
+  - Scene Boundaryで禁止された「放課後」を直接描写。
+  - その後「次の授業が始まるまで」と時間関係も不整合。
+- Reveal Violation: **2 — 部分的回答**
+  - 「普通の友情以上の重み」
+  - 「みず葉が自分に特別な配慮を持っている」
+  と、みず葉の態度を特別な関係性へ具体化。
+  - Scene Questionをほぼそのまま直接本文化。
+  - 真の理由自体は明示していないが、回答方向をかなり狭めている。
+
+#### Combined-constraint behavior
+
+C3はScene BoundaryとReveal Constraintsを同時投入しているが、
+このSeedでは両方の主要違反が同時に発生。
+
+- Boundary: 放課後までOverrun
+- Reveal: 特別な配慮／友情以上へ意味を具体化
+
+したがってC3 Seed 42では、
+constraint coexistenceは成立しても
+**simultaneous complianceは成立していない**。
+
+#### Scene structure
+
+B1〜B4に相当する要素は揃う。
+
+- B1: みず葉との朝
+- B2: みず葉の視線・違和感
+- B3: 住吉登場で空気回復
+- B4: 予感・疑問
+
+ただしB4後に放課後描写へ進むため、
+Scene単位として閉じられない。
+
+#### Scene Question / Realization
+
+最終段落で、
+
+```text
+「みず葉はなぜ、こんなにも僕を気にかけてくれるのだろう？」
+```
+
+とScene Questionを直接本文化。
+
+さらに、
+
+```text
+答えは、まだ遠い未来の章で明かされるだろう。
+```
+
+と強いメタ予告。
+
+Reveal Constraintsの
+「『次の章で明らかになる』などメタ的に予告しない」
+に実質的に直接違反。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- ロッカー
+- 前回授業内容
+- 新教材
+- 住吉がみず葉の隣に座る
+- みず葉の指先が震える
+- 隼太を「少し臆病な少年」と性格付け
+- 放課後
+- 「友情以上」という関係性解釈
+- 「特別な配慮」
+- 「未来の章で明かされる」
+
+Plot / character meaning / relationship interpretationを追加し **Level 3**。
+
+#### Character / Addressing
+
+比較的安定。
+
+- みず葉の明るさと隼太への注視を保持。
+- 隼太の短い返答を保持。
+- 住吉の陽気さを保持。
+- 呼称の大きな崩れはない。
+
+ただし、
+- physical closenessを肩・背中への接触として具体化。
+- 「臆病」という未設定の性格評価を追加。
+
+#### Style Compliance
+
+- 三人称Narrationは維持。
+- 隼太寄り。
+- ただし過去形中心。
+- 抽象心理・比喩が多い。
+- 「謎の種」「未来の章」などメタ／設計語的表現が強い。
+
+#### Local coherence
+
+- 冒頭は朝、終盤で突然「放課後」。
+- その後「次の授業が始まるまで」と時間軸が逆転。
+- Scene Boundaryを追加しているにもかかわらず時間遷移が破綻。
+
+#### Cross-condition comparison for Seed 42
+
+- C0: Endpoint 0 / Overrun 3 / Reveal 1
+- C1: Endpoint 0 / Overrun 2 / Reveal 0
+- C2: Endpoint 0 / Overrun 3 / Reveal 2
+- C3: Endpoint 0 / Overrun 2 / Reveal 2
+
+For Seed 42:
+
+- Scene Boundary consistently reduces overrun by one level (3→2).
+- Reveal Constraints do not improve Reveal score; C2/C3 are worse than C0/C1.
+- Combining constraints does not recover the Reveal failure.
+
+This is an important counterexample to H3.
