@@ -420,3 +420,120 @@ LLM-jp-4-8b-instruct can use the Scene Card and Character Context to construct a
 - implicit handling of the Scene Question
 
 The three-seed baseline is sufficiently unstable to make C1 Scene Boundary a meaningful next test.
+
+
+## C1 — Scene Boundary
+
+### Seed 42
+
+Raw output:
+`outputs/C1/seed_42.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の明るさで空気が和らぐ。
+  - 理由不明の予感を残す。
+- Boundary Overrun: **2 — 明確な境界逸脱**
+  - 先生が黒板に数式を書き、授業が開始。
+  - 授業終了まで進行。
+  - 次の体育へ移行。
+  - C1のforbidden_after_endに明示された「授業開始後の出来事」を描写している。
+- Reveal Violation: **0 — 遵守**
+  - みず葉が隼太を気にかける具体的理由は明かしていない。
+  - ただし「みず葉が自分を気に掛け続ける理由は…掴めなかった」とScene Questionを説明的に言語化しているため、Realization-level controlは弱い。
+
+#### Scene Boundary effect relative to C0 / Seed 42
+
+- C0 Seed 42: Endpoint 0 / Overrun 3
+- C1 Seed 42: Endpoint 0 / Overrun 2
+
+Scene Boundary追加により、翌朝まで進む大幅逸脱は抑えられたが、
+required_state到達後のstop_ruleは守られなかった。
+
+したがってこのSeedでは **partial improvement**。
+
+#### Scene structure
+
+B1〜B4は概ね成立。
+
+- B1: みず葉との朝
+- B2: みず葉の視線・違和感
+- B3: 住吉登場で空気回復
+- B4: 理由不明の予感
+
+ただしB4後も授業開始・授業終了・次時限へ進行。
+
+#### Scene Question / Realization
+
+具体的な答えは出していないが、
+
+```text
+みず葉が自分を気に掛け続ける理由は、
+今日の短いやり取りだけでは掴めなかった。
+```
+
+と、設計上の疑問を説明的に本文化。
+
+暗示化ではなく「理由は不明」と説明する方式。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- 先生がすでに黒板前に座っている
+- 住吉が遅刻ぎりぎり
+- 住吉が机の上に飛び乗る
+- 教師が数式を書く
+- 次の授業が体育
+- 桜並木（9月上旬と季節矛盾）
+- 教室の灯りが暗くなる
+- 次の授業で何かが起きるという予告
+
+Scene進行と学校状況を新規追加しており **Level 3**。
+
+#### Character / Addressing
+
+- みず葉の明るさ、隼太を見る傾向は保持。
+- 住吉の陽気さも保持。
+- 呼称の大きな逸脱は少ない。
+- ただし「水葉」という表記揺れ／誤記が1箇所ある。
+
+#### Style Compliance
+
+C0より改善。
+
+- 地の文は三人称で、隼太寄り。
+- 一人称Narratorへの崩れはない。
+- 内心（）も使用。
+
+ただし、
+- 過去形中心でpresent-tense preferenceを守らない。
+- 抽象心理語が多い。
+- 「心の中でつぶやくように言ったが、口には出さなかった」など表現が不安定。
+
+#### Meta-information leakage
+
+最後に、
+
+```text
+――以上が、二学期初日の教室で交わされた、
+静かで確かな“何も起きない”朝の物語です。
+```
+
+と作者的メタ要約を付加。
+
+Scene title相当の「何も起きない」を本文外メタ表現として露出。
+
+#### Cross-model note
+
+Experiment 05 Qwen3 B1 Seed 42は Endpoint 0 / Overrun 0 だった。
+
+LLM-jp C1 Seed 42は Endpoint 0 / Overrun 2。
+
+同じScene Boundary constraintでも、
+このSeedではQwen3ほどstop_ruleが効いていない。
+
+ただし単一Seed比較なので、C1三本が揃うまではモデル差と断定しない。
