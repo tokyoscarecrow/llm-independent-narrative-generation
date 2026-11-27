@@ -11,11 +11,18 @@ runtime:
   platform: "Kaggle Notebook"
   gpu: "Tesla T4 x2"
   framework: "Hugging Face Transformers"
-  dtype_candidate: "float16"
+  dtype: "float16"
+  python: "3.12.13"
+  pytorch: "2.10.0+cu128"
+  transformers: "5.0.0"
+  cuda_runtime: "12.8"
+  gpu_count: 2
+  gpu: "Tesla T4 x2"
+  runtime_status: "PASS"
   note: >
-    LLM-jp model-card example uses bfloat16, but NVIDIA T4 does not provide
-    native BF16 Tensor Core support. Runtime compatibility is tested first
-    with float16.
+    Stage 1 passed in FP16 across two Tesla T4 GPUs. Although this PyTorch
+    runtime reports BF16 support, FP16 is retained to avoid changing a
+    validated runtime variable.
 
 model:
   model_id: "llm-jp/llm-jp-4-8b-instruct"
@@ -23,17 +30,17 @@ model:
   reasoning_mode: "non-thinking"
 
 generation:
-  status: "provisional_until_stage_2"
-  candidate:
-    do_sample: true
-    temperature: 0.7
-    top_p: 0.95
-    repetition_penalty: 1.05
-    max_new_tokens: 2000
+  status: "frozen_stage_2"
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.95
+  repetition_penalty: 1.05
+  max_new_tokens: 2000
+  pad_token_id_policy: "use tokenizer.eos_token_id"
   note: >
-    Candidate values follow the model-card usage example where applicable.
-    Final narrative-generation parameters will be frozen only after the
-    Stage 1 smoke test succeeds.
+    Parameters are frozen after successful Stage 1 runtime validation.
+    temperature, top_p, and repetition_penalty follow the LLM-jp usage example.
+    No additional top_k or min_p filter is introduced.
 
 seeds:
   - 42
