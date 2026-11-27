@@ -537,3 +537,119 @@ LLM-jp C1 Seed 42は Endpoint 0 / Overrun 2。
 このSeedではQwen3ほどstop_ruleが効いていない。
 
 ただし単一Seed比較なので、C1三本が揃うまではモデル差と断定しない。
+
+
+### Seed 31415
+
+Raw output:
+`outputs/C1/seed_31415.txt`
+
+#### Primary evaluation
+
+- Required Endpoint Completion: **0 — 到達**
+  - 教室へ到達。
+  - 住吉が登場。
+  - 住吉の登場で空気が和らぐ。
+  - 最後に理由不明の予感を残す。
+- Boundary Overrun: **2 — 明確な境界逸脱**
+  - 先生が教壇に立ち、授業を開始。
+  - 講義が進行し、先生が「次のページ」へ進むところまで描写。
+  - Scene Boundaryの forbidden_after_end にある「授業開始後の出来事」を明確に生成。
+- Reveal Violation: **1 — 軽微な具体化**
+  - 具体的な理由・事件内容は明かしていない。
+  - ただし「僕が知らない過去が影を落としているのか」「どんな過去が語られるのだろう」と、
+    理由を“過去”へ強く狭めている。
+  - 「みず葉が抱えていた“重さ”」と設計語を直接本文化している。
+
+#### Scene Boundary effect relative to C0 / Seed 31415
+
+- C0 Seed 31415: Endpoint 2 / Overrun 0
+- C1 Seed 31415: Endpoint 0 / Overrun 2
+
+Scene Boundary追加によって、C0で発生した早期終了は解消し、
+required endpointまで到達した。
+
+一方で、到達後のstop_ruleには従わず授業開始後へ進んだ。
+
+したがって、このSeedでも効果は
+**endpoint completionには強いが、stoppingには弱い**
+という形。
+
+#### Scene Question / Realization
+
+```text
+なんで、みず葉はいつも僕のことを見てるんだろう？
+```
+
+とScene Questionを近い形で直接疑問化。
+
+さらに、
+
+```text
+みず葉が僕のことを気にかけている理由は、まだ見えない。
+```
+
+と説明的に言語化している。
+
+暗示ではなく、設計上の問いを本文に明示。
+
+#### Unsupported Additions
+
+主要な追加：
+
+- 体育祭が来月開催という学校行事
+- 「国語Ⅰ　第1回　読解」
+- 窓際の席／隣席女子
+- 8時55分という具体時刻
+- 教師が授業を開始
+- 「過去が影を落としている」という意味づけ
+- 秋なのに桜の花びらが舞い落ちる描写
+- 「次のシーンで明らかになる」というメタ予告
+
+物語世界・学校状況・伏線解釈・Scene進行を追加するため **Level 3**。
+
+#### Character / Addressing
+
+- 隼太の短い返答は維持。
+- みず葉の明るさ、隼太を見る傾向を保持。
+- 住吉の陽気さも保持。
+- 呼称自体は概ね指定範囲。
+
+一方で「水葉」と「みず葉」が混在し、表記揺れがある。
+
+#### Style Compliance
+
+重大な違反。
+
+- 指定は三人称近接だが、出力は一人称「僕」。
+- 現在形ベース指定に対し過去形中心。
+- 会話をMarkdown引用形式 `>` で書いており、小説本文形式から逸脱。
+- 抽象心理・比喩が多い。
+
+#### Meta-information leakage
+
+非常に強い。
+
+最終文：
+
+```text
+次のシーンで明らかになるはずなのだ。
+```
+
+とScene単位を明示するメタ言語を使用。
+
+また「重さ」という設計上の意味語を本文へ持ち込んでいる。
+
+#### C1 interim after 2 seeds
+
+| Seed | Endpoint | Overrun | Reveal |
+|---|---:|---:|---:|
+| 42 | 0 | 2 | 0 |
+| 31415 | 0 | 2 | 1 |
+
+2 SeedともEndpointは0へ揃った一方、
+両方ともOverrun 2。
+
+現時点ではScene Boundary constraintが
+**required endpointへの到達を安定化する可能性**は見えるが、
+**stop_ruleを遵守させる効果は弱い**。
