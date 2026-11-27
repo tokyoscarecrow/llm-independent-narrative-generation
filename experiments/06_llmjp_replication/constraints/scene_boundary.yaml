@@ -1,0 +1,35 @@
+scene_boundary:
+  purpose: "EP01_SC02の時間・場所・出来事の範囲を越えない"
+
+  allowed_scope:
+    start:
+      location: "六ッ川高校・昇降口付近"
+      state: "二学期初日の朝、隼太とみず葉が登校している"
+
+    end:
+      location: "教室"
+      required_state:
+        - "住吉が登場している"
+        - "日常の空気がいったん戻っている"
+        - "隼太に理由不明の予感が残っている"
+
+  stop_rule:
+    - "endのrequired_stateに到達したら、新しい出来事を開始せず本文を終了する"
+
+  forbidden_after_end:
+    - "授業開始後の出来事"
+    - "休み時間"
+    - "昼休み"
+    - "放課後"
+    - "部活動"
+    - "下校"
+    - "帰宅"
+    - "夜"
+    - "翌日以降"
+
+  prohibited_extensions:
+    - "このScene内で新しい学校行事を開始しない"
+    - "このScene内で次のSceneに相当するイベントを開始しない"
+
+  output_note:
+    - "Scene境界や終了条件を本文中でメタ的に説明しない"
